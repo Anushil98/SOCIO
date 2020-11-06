@@ -6,7 +6,8 @@
   "author": "Anushil98 <anushilghoshdastidar@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon -r dotenv/config --watch ./src src/index.ts"
+    "dev": "nodemon -r dotenv/config --watch ./src src/index.ts",
+    "commit": "git-cz"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.0",
