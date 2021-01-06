@@ -27,15 +27,15 @@ export class Student {
   @Column()
   gender: Gender;
 
-  @Column()
+  @Column({ nullable: true })
   avatar: string;
 
-  @Column()
+  @Column({ nullable: true })
   cover: string;
 
-  @Column()
+  @Column({ nullable: true })
   bio: string;
 
-  @Column()
+  @Column({ nullable: true })
   age: number;
 }

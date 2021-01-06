@@ -1,0 +1,26 @@
+enum UserType {
+  College
+  Student
+}
+enum Gender {
+  Male
+  Female
+  Other
+}
+
+type AuthPayload {
+  accessToken: String
+  refreshAccessToken: String
+  userId: Int
+}
+
+input SignUpArgs {
+  userType: UserType!
+  email: String!
+  password: String
+  firstname: String
+  lastname: String
+  gender: Gender
+  age: Int
+  collegeName: String
+}

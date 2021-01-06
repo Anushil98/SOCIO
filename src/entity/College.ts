@@ -19,12 +19,12 @@ export class College {
   @Column()
   collegeName: string;
 
-  @Column()
+  @Column({ nullable: true })
   avatar: string;
 
-  @Column()
+  @Column({ nullable: true })
   cover: string;
 
-  @Column()
+  @Column({ nullable: true })
   bio: string;
 }

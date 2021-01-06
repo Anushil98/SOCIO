@@ -1,3 +1,5 @@
 type Mutation {
   InitMutation: String!
+  login(email: String!, password: String!): AuthPayload
+  signUp(data: SignUpArgs): AuthPayload
 }
