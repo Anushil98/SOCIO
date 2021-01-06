@@ -6,8 +6,9 @@
   "author": "Anushil98 <anushilghoshdastidar@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon -r dotenv/config --watch ./src src/index.ts",
-    "commit": "git-cz"
+    "dev": "nodemon -e ts,js,graphql -r dotenv/config --watch ./src src/index.ts",
+    "commit": "git-cz",
+    "start": "ts-node src/index.ts"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.0",
@@ -37,11 +38,11 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
-    "pg": "^7.17.1",
+    "pg": "^7.3.0",
     "pino": "^6.6.1",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.1.10",
     "shortid": "^2.2.15",
-    "typeorm": "^0.2.25",
+    "typeorm": "0.2.25",
     "uuidv4": "^6.2.2"
   },
   "devDependencies": {
@@ -53,7 +54,7 @@
     "@types/hapi__joi": "^16.0.8",
     "@types/jsonwebtoken": "^8.3.7",
     "@types/lodash": "^4.14.149",
-    "@types/node": "^13.1.8",
+    "@types/node": "^8.0.29",
     "@types/passport": "^1.0.2",
     "@types/passport-facebook": "^2.1.9",
     "@types/passport-google-oauth20": "^2.0.0",
@@ -81,8 +82,8 @@
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
     "standard-version": "^7.1.0",
-    "ts-node": "^8.6.2",
-    "typescript": "^3.8.2"
+    "ts-node": "3.3.0",
+    "typescript": "3.3.3333"
   },
   "config": {
     "commitizen": {
