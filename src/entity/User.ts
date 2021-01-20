@@ -17,5 +17,11 @@ export class User {
   password: string;
 
   @Column({ default: 0 })
+  FalseLoginAttempts: number;
+
+  @Column({ default: 0 })
   LoginDelay: number;
+
+  @Column({ nullable: true })
+  LastLoginTime: Date;
 }
