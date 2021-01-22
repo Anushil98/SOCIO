@@ -7,6 +7,7 @@ import path from "path";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import resolvers from "./graphql/resolvers";
+import { LeakyBucket } from "./utils/leakyBucket";
 import { logger } from "./utils/pino.utils";
 
 const app = express();
@@ -35,7 +36,9 @@ server.installSubscriptionHandlers(httpServer);
 createConnection()
   .then(async () => {
     logger.info("Postgres Connected");
+    app.use("/graphql", LeakyBucket);
     server.applyMiddleware({ app, path: server.graphqlPath });
+
     httpServer.listen({ port: 3000 }, async () => {
       logger.info({ filename: "index.ts" }, `Server ready at http://localhost:3000${server.graphqlPath}`);
     });
