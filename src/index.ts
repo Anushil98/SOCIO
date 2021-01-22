@@ -36,7 +36,7 @@ server.installSubscriptionHandlers(httpServer);
 createConnection()
   .then(async () => {
     logger.info("Postgres Connected");
-    app.use("/graphql", LeakyBucket);
+    app.use("/graphql", express.json(), LeakyBucket);
     server.applyMiddleware({ app, path: server.graphqlPath });
 
     httpServer.listen({ port: 3000 }, async () => {
