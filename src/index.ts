@@ -7,7 +7,7 @@ import path from "path";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import resolvers from "./graphql/resolvers";
-import { LeakyBucket } from "./utils/leakyBucket";
+import { RateLimiter } from "./utils/graphql.directives";
 import { logger } from "./utils/pino.utils";
 
 const app = express();
@@ -17,7 +17,10 @@ const typeDefs = mergeTypes(schemaArray);
 const schema = applyMiddleware(
   makeExecutableSchema({
     typeDefs,
-    resolvers
+    resolvers,
+    schemaDirectives: {
+      rateLimit: RateLimiter
+    }
   })
 );
 
@@ -25,6 +28,8 @@ const httpServer = createServer(app);
 const config: ApolloServerExpressConfig = {
   schema,
   context: async ctx => {
+    // const chk = await LeakyBucket(ctx.req);
+    // logger.debug({ chk });
     return { ...ctx };
   }
   // subscriptions: { path: "/subscriptions" }
@@ -36,7 +41,7 @@ server.installSubscriptionHandlers(httpServer);
 createConnection()
   .then(async () => {
     logger.info("Postgres Connected");
-    app.use("/graphql", express.json(), LeakyBucket);
+    // app.use("/graphql", express.json(), );
     server.applyMiddleware({ app, path: server.graphqlPath });
 
     httpServer.listen({ port: 3000 }, async () => {

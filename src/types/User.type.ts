@@ -18,3 +18,9 @@ export interface AuthPayload {
   refreshAccessToken: string;
   userId: number;
 }
+
+export interface IpToken {
+  timestamp: number;
+  tokens: number;
+  ip: string;
+}
