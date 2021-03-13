@@ -1,0 +1,23 @@
+type Media {
+  filename: String
+  baseurl: String
+}
+input MediaInput {
+  filename: String
+  baseurl: String
+}
+
+input postInput {
+  text: String
+  Media: MediaInput
+}
+
+type POST {
+  postId: String
+  User: User
+  userId: String
+  text: String
+  Media: Media
+  createdDate: DateTime
+  updateDate: DateTime
+}

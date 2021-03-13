@@ -4,8 +4,8 @@ import { UserType } from "../types/User.type";
 @Entity()
 @Unique("email_idx", ["email"])
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Column()
   UserType: UserType;

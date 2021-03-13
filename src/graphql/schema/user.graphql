@@ -11,7 +11,7 @@ enum Gender {
 type AuthPayload {
   accessToken: String
   refreshAccessToken: String
-  userId: Int
+  userId: String
 }
 
 input SignUpArgs {
@@ -25,3 +25,12 @@ input SignUpArgs {
   collegeName: String
 }
 
+type User {
+  id: String
+  UserType: UserType
+  email: String
+  password: String
+  # FalseLoginAttempts: number
+  # LoginDelay: number
+  # LastLoginTime: Date
+}

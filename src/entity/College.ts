@@ -13,8 +13,8 @@ export class College {
   @JoinColumn({ name: "userId" })
   user: User;
 
-  @Column()
-  userId: number;
+  @Column("uuid")
+  userId: string;
 
   @Column()
   collegeName: string;

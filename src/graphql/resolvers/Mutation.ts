@@ -1,3 +1,4 @@
+import { createPost } from "../../resolvers/Post.mutation";
 import { login, signUp } from "../../resolvers/User.mutation";
 
 const Mutation = {
@@ -5,7 +6,8 @@ const Mutation = {
     return "Test Passed";
   },
   signUp,
-  login
+  login,
+  createPost
 };
 
 export default Mutation;

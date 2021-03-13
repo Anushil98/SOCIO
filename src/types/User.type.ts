@@ -16,7 +16,7 @@ export interface SignUpArgs {
 export interface AuthPayload {
   accessToken: string;
   refreshAccessToken: string;
-  userId: number;
+  userId: string;
 }
 
 export interface IpToken {

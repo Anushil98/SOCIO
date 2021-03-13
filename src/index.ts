@@ -9,6 +9,7 @@ import { createConnection } from "typeorm";
 import resolvers from "./graphql/resolvers";
 import { RateLimiter } from "./utils/graphql.directives";
 import { logger } from "./utils/pino.utils";
+import { getUserId } from "./utils/token.utils";
 
 const app = express();
 const schemaArray = fileLoader(path.join(__dirname, "./graphql/schema/"));
@@ -28,8 +29,11 @@ const httpServer = createServer(app);
 const config: ApolloServerExpressConfig = {
   schema,
   context: async ctx => {
-    // const chk = await LeakyBucket(ctx.req);
-    // logger.debug({ chk });
+    const acessToken = ctx.req.headers.authorization;
+    if (acessToken) {
+      const { userId } = getUserId(acessToken);
+      return { ...ctx, userId };
+    }
     return { ...ctx };
   }
   // subscriptions: { path: "/subscriptions" }
