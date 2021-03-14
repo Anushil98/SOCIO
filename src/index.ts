@@ -44,7 +44,7 @@ server.installSubscriptionHandlers(httpServer);
 
 createConnection()
   .then(async () => {
-    logger.info("Postgres Connected");
+    logger.info("Postgres Connected!!");
     // app.use("/graphql", express.json(), );
     server.applyMiddleware({ app, path: server.graphqlPath });
 
