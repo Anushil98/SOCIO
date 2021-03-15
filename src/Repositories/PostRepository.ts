@@ -1,4 +1,4 @@
-import { EntityRepository, Repository } from "typeorm";
+import { EntityRepository, getRepository, Repository } from "typeorm";
 import { Post } from "../entity/Posts";
 import { PostInput } from "../types/post.type";
 import { logger } from "../utils/pino.utils";
@@ -18,6 +18,15 @@ export class PostRepository extends Repository<Post> {
     } catch (err) {
       logger.error(err);
       throw new Error("INternal Server Error");
+    }
+  };
+
+  getUserPosts = async (userId: string): Promise<Post[]> => {
+    try {
+      return getRepository(Post).find({ relations: ["User", "User.Student", "User.College"], where: { userId } });
+    } catch (err) {
+      logger.error(err);
+      throw new Error("Internal Server Error!");
     }
   };
 }

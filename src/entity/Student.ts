@@ -5,8 +5,8 @@ import { User } from "./User";
 @Entity("student")
 @Check(`"age" < 100 AND "age" > 0`)
 export class Student {
-  @PrimaryGeneratedColumn()
-  studentId: number;
+  @PrimaryGeneratedColumn("uuid")
+  studentId: string;
 
   @OneToOne(
     () => User,

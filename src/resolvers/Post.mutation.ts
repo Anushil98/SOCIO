@@ -12,3 +12,12 @@ export const createPost = async (_: any, args: { data: PostInput }, ctx: { userI
     throw new Error("INternal Server Error!");
   }
 };
+
+export const getUserPosts = async (_: any, args: { userId: string }, ctx: { userId: string }) => {
+  try {
+    return getCustomRepository(PostRepository).getUserPosts(args.userId);
+  } catch (err) {
+    logger.error(err);
+    throw new Error("Internal Server Error!!");
+  }
+};

@@ -48,8 +48,8 @@ createConnection()
     // app.use("/graphql", express.json(), );
     server.applyMiddleware({ app, path: server.graphqlPath });
 
-    httpServer.listen({ port: 3000 }, async () => {
-      logger.info({ filename: "index.ts" }, `Server ready at http://localhost:3000${server.graphqlPath}`);
+    httpServer.listen({ port: 5000 }, async () => {
+      logger.info({ filename: "index.ts" }, `Server ready at http://localhost:5000${server.graphqlPath}`);
     });
   })
   .catch(error => logger.error(error));

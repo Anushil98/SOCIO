@@ -3,8 +3,8 @@ import { User } from "./User";
 
 @Entity("college")
 export class College {
-  @PrimaryGeneratedColumn()
-  collegeId: number;
+  @PrimaryGeneratedColumn("uuid")
+  collegeId: string;
 
   @OneToOne(
     () => User,

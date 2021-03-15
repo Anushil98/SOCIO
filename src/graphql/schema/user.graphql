@@ -29,8 +29,31 @@ type User {
   id: String
   UserType: UserType
   email: String
-  password: String
+  Student: Student
+  College: College
   # FalseLoginAttempts: number
   # LoginDelay: number
   # LastLoginTime: Date
+}
+type Student {
+  studentId: String
+  user: User
+  userId: String
+  firstname: String
+  lastname: String
+  gender: Gender
+  avatar: String
+  cover: String
+  bio: String
+  age: Int
+}
+
+type College {
+  collegeId: String
+  user: User
+  userId: String
+  collegeName: String
+  avatar: String
+  cover: String
+  bio: String
 }

@@ -28,7 +28,8 @@ export class UserRepository extends Repository<User> {
           const college = new College();
           college.collegeName = collegeName;
           college.userId = addedUser.id;
-          await getRepository(College).save(college);
+          const savedCollege = await getRepository(College).save(college);
+          await getRepository(User).update({ id: addedUser.id }, { collegeId: savedCollege.collegeId });
         }
         const student = new Student();
         student.firstname = firstname;
@@ -36,7 +37,8 @@ export class UserRepository extends Repository<User> {
         student.gender = gender;
         student.age = age;
         student.userId = addedUser.id;
-        await getRepository(Student).save(student);
+        const savedStudent = await getRepository(Student).save(student);
+        await getRepository(User).update({ id: addedUser.id }, { studentId: savedStudent.studentId });
         return addedUser;
       }
       throw new Error("Email already exist");

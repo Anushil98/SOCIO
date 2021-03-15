@@ -11,8 +11,9 @@ export const generateToken = (userId: string, email: string): AuthPayload => {
 };
 
 export const getUserId = (accessToken: string) => {
-  const payload: any = jwt.verify(accessToken, keys.accessTokenSecret);
-
+  let Auth = accessToken.replace("Bearer", "");
+  Auth = Auth.trim();
+  const payload: any = jwt.verify(Auth, keys.accessTokenSecret);
   if (payload) {
     const userId = payload.userId.toString();
     return { userId };
