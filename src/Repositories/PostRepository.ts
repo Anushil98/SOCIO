@@ -23,7 +23,7 @@ export class PostRepository extends Repository<Post> {
 
   getUserPosts = async (userId: string): Promise<Post[]> => {
     try {
-      return getRepository(Post).find({ relations: ["User", "User.Student", "User.College"], where: { userId } });
+      return getRepository(Post).find({ relations: ["User"], where: { userId } });
     } catch (err) {
       logger.error(err);
       throw new Error("Internal Server Error!");

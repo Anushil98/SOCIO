@@ -12,7 +12,7 @@ input postInput {
   Media: MediaInput
 }
 
-type POST {
+type Post {
   postId: String
   User: User
   userId: String

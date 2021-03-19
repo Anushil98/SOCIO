@@ -1,6 +1,6 @@
-export type UserType = "Student" | "College";
+export type UserType = "Private" | "Public";
 
-export type Gender = "Male" | "Female" | "Other";
+// export type Gender = "Male" | "Female" | "Other";
 
 export interface SignUpArgs {
   userType: UserType;
@@ -8,9 +8,7 @@ export interface SignUpArgs {
   password: string;
   firstname?: string;
   lastname?: string;
-  gender?: Gender;
-  age?: number;
-  collegeName?: string;
+  username: string;
 }
 
 export interface AuthPayload {

@@ -1,6 +1,6 @@
 enum UserType {
-  College
-  Student
+  Private
+  Public
 }
 enum Gender {
   Male
@@ -17,43 +17,22 @@ type AuthPayload {
 input SignUpArgs {
   userType: UserType!
   email: String!
-  password: String
-  firstname: String
+  password: String!
+  username: String!
+  firstname: String!
   lastname: String
-  gender: Gender
-  age: Int
-  collegeName: String
 }
 
 type User {
   id: String
   UserType: UserType
   email: String
-  Student: Student
-  College: College
-  # FalseLoginAttempts: number
-  # LoginDelay: number
-  # LastLoginTime: Date
-}
-type Student {
-  studentId: String
-  user: User
-  userId: String
+  username: String
   firstname: String
   lastname: String
-  gender: Gender
+  bio: String
   avatar: String
   cover: String
-  bio: String
-  age: Int
-}
-
-type College {
-  collegeId: String
-  user: User
-  userId: String
-  collegeName: String
-  avatar: String
-  cover: String
-  bio: String
+  createdDate: DateTime
+  updateDate: DateTime
 }

@@ -1,10 +1,7 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserType } from "../types/User.type";
-import { College } from "./College";
-import { Student } from "./Student";
 
 @Entity()
-@Unique("email_idx", ["email"])
 export class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -12,7 +9,7 @@ export class User {
   @Column()
   UserType: UserType;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
@@ -27,23 +24,27 @@ export class User {
   @Column({ nullable: true })
   LastLoginTime: Date;
 
-  @OneToOne(
-    () => Student,
-    student => student.studentId
-  )
-  @JoinColumn({ name: "studentId" })
-  Student: Student;
+  @Column({ unique: true })
+  username: string;
+
+  @Column()
+  firstname: string;
 
   @Column({ nullable: true })
-  studentId: string;
-
-  @OneToOne(
-    () => College,
-    college => college.collegeId
-  )
-  @JoinColumn({ name: "collegeId" })
-  College: College;
+  lastname: string;
 
   @Column({ nullable: true })
-  collegeId: string;
+  bio: string;
+
+  @Column({ nullable: true })
+  avatar: string;
+
+  @Column({ nullable: true })
+  cover: string;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updateDate: Date;
 }
