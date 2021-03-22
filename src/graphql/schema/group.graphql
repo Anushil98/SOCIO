@@ -1,0 +1,16 @@
+input groupInput {
+  grpName: String
+  grpHandle: String
+  grpBio: String
+}
+
+type Group {
+  grpId: String
+  grpName: String
+  grpHandle: String
+  grpBio: String
+  ownerId: String
+  Owner: User
+  createdDate: DateTime
+  updateDate: DateTime
+}
