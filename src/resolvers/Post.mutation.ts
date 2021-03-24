@@ -21,3 +21,12 @@ export const getUserPosts = async (_: any, args: { userId: string }, ctx: { user
     throw new Error("Internal Server Error!!");
   }
 };
+
+export const getChildPosts = async (_: any, args: { parentId: string }, ctx: { userId: string }) => {
+  try {
+    return getCustomRepository(PostRepository).getChildrenPosts(args.parentId);
+  } catch (err) {
+    logger.error(err);
+    throw new Error("Internal Server Error!!");
+  }
+};

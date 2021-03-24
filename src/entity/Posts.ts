@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Media } from "../types/post.type";
 import { User } from "./User";
 
@@ -6,6 +6,25 @@ import { User } from "./User";
 export class Post {
   @PrimaryGeneratedColumn("uuid")
   postId: string;
+
+  @ManyToOne(
+    () => Post,
+    post => post.postId
+  )
+  @JoinColumn({ name: "parentId" })
+  Parent: Post;
+
+  @Column({ default: null, nullable: true })
+  parentId: string;
+
+  @Column("boolean", { default: false })
+  HasChildren: boolean;
+
+  @OneToMany(
+    () => Post,
+    post => post.Parent
+  )
+  children: Post[];
 
   @ManyToOne(
     () => User,

@@ -3,4 +3,5 @@ directive @rateLimit(MAX_TOKENS: Int, TOKEN_WINDOW: Int) on FIELD_DEFINITION
 type Query {
   InitQuery(id: Int): String! @rateLimit(MAX_TOKENS: 10, TOKEN_WINDOW: 86400)
   getUserPosts(userId: String!): [Post]
+  getChildPosts(parentId: String!): Post
 }

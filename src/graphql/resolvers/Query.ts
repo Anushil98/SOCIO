@@ -1,10 +1,11 @@
-import { getUserPosts } from "../../resolvers/Post.mutation";
+import { getChildPosts, getUserPosts } from "../../resolvers/Post.mutation";
 
 const Query = {
   InitQuery: () => {
     return "Test Passed";
   },
-  getUserPosts
+  getUserPosts,
+  getChildPosts
 };
 
 export default Query;

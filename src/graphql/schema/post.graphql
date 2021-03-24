@@ -10,12 +10,17 @@ input MediaInput {
 input postInput {
   text: String
   Media: MediaInput
+  parentId: String
 }
 
 type Post {
   postId: String
   User: User
   userId: String
+  parentId: String
+  Parent: Post
+  children: [Post]
+  HasChildren: Boolean
   text: String
   Media: Media
   createdDate: DateTime
