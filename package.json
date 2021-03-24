@@ -85,7 +85,7 @@
     "pino-pretty": "^4.2.1",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
-    "standard-version": "^7.1.0",
+    "standard-version": "^8.0.1",
     "ts-node": "3.3.0",
     "typescript": "3.3.3333"
   },
