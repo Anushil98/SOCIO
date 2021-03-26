@@ -1,0 +1,38 @@
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { InviteStateEnum } from "../types/Invite.type";
+import { User } from "./User";
+
+@Entity("Invite")
+export class Invite {
+  @PrimaryGeneratedColumn("uuid")
+  InviteId: string;
+
+  @ManyToOne(
+    () => User,
+    user => user.id
+  )
+  @JoinColumn({ name: "hostId" })
+  Host: User;
+
+  @Column("uuid")
+  hostId: string;
+
+  @ManyToOne(
+    () => User,
+    user => user.id
+  )
+  @JoinColumn({ name: "guestId" })
+  Guest: User;
+
+  @Column("uuid")
+  guestId: string;
+
+  @Column("enum", { enum: InviteStateEnum, default: InviteStateEnum.Pending })
+  InviteState: InviteStateEnum;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updateDate: Date;
+}
