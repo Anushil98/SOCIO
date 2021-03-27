@@ -1,11 +1,22 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Media } from "../types/post.type";
+import { Group } from "./Group";
 import { User } from "./User";
 
 @Entity("posts")
 export class Post {
   @PrimaryGeneratedColumn("uuid")
   postId: string;
+
+  @ManyToOne(
+    () => Group,
+    group => group.grpId
+  )
+  @JoinColumn({ name: "grpId" })
+  Group: Group;
+
+  @Column("uuid", { nullable: true })
+  grpId: string;
 
   @ManyToOne(
     () => Post,

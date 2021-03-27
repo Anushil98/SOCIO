@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { MemberType } from "../types/Group.type";
 import { Group } from "./Group";
 import { Invite } from "./Invite";
 import { User } from "./User";
@@ -7,6 +8,9 @@ import { User } from "./User";
 export class GroupMember {
   @PrimaryGeneratedColumn("uuid")
   memberId: string;
+
+  @Column({ type: "enum", enum: MemberType })
+  MemberType: MemberType;
 
   @ManyToOne(
     () => User,
@@ -35,7 +39,7 @@ export class GroupMember {
   @JoinColumn({ name: "inviteId" })
   Invite: Invite;
 
-  @Column("uuid")
+  @Column("uuid", { nullable: true })
   inviteId: string;
 
   @CreateDateColumn()

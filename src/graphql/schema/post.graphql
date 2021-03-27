@@ -9,6 +9,7 @@ input MediaInput {
 
 input postInput {
   text: String
+  grpId: String
   Media: MediaInput
   parentId: String
 }

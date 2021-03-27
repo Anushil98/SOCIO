@@ -1,6 +1,7 @@
-import { EntityRepository, Repository } from "typeorm";
+import { EntityRepository, getRepository, Repository } from "typeorm";
 import { Group } from "../entity/Group";
-import { GroupInput } from "../types/Group.type";
+import { GroupMember } from "../entity/GroupMember";
+import { GroupInput, MemberType } from "../types/Group.type";
 import { logger } from "../utils/pino.utils";
 
 @EntityRepository(Group)
@@ -12,7 +13,13 @@ export class GroupRepository extends Repository<Group> {
       grp.grpHandle = data.grpHandle;
       grp.grpName = data.grpName;
       grp.ownerId = data.ownerId;
-      return this.save(grp);
+      const savedgrp = await this.save(grp);
+      const owner = new GroupMember();
+      owner.grpId = savedgrp.grpId;
+      owner.userId = grp.ownerId;
+      owner.MemberType = MemberType.Owner;
+      await getRepository(GroupMember).save(owner);
+      return savedgrp;
     } catch (err) {
       logger.error(err);
       throw new Error("Internal Server Error");

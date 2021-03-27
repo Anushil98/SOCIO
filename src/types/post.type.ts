@@ -5,6 +5,7 @@ export interface Media {
 
 export interface PostInput {
   parentId?: string;
+  grpId?: string;
   text: string;
   Media: Media[];
 }

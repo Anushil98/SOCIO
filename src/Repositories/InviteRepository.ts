@@ -1,6 +1,7 @@
 import { EntityRepository, getRepository, Repository } from "typeorm";
 import { GroupMember } from "../entity/GroupMember";
 import { Invite } from "../entity/Invite";
+import { MemberType } from "../types/Group.type";
 import { InviteInput, InviteStateEnum } from "../types/Invite.type";
 import { logger } from "../utils/pino.utils";
 
@@ -30,6 +31,7 @@ export class InviteRepository extends Repository<Invite> {
           grpmember.grpId = grpId;
           grpmember.userId = userId;
           grpmember.inviteId = inviteId;
+          grpmember.MemberType = MemberType.Member;
           await getRepository(GroupMember).save(grpmember);
         }
         return true;

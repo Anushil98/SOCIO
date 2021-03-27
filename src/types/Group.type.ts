@@ -4,3 +4,8 @@ export interface GroupInput {
   grpBio?: string;
   ownerId?: string;
 }
+
+export enum MemberType {
+  Owner = "Owner",
+  Member = "Member"
+}
