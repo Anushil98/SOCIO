@@ -5,6 +5,5 @@ type Mutation {
   createPost(data: postInput): Post!
   createGroup(data: groupInput): Group!
   createInvite(data: InviteInput): Invite
-  getInvites: [Invite]
   ActionOnInvite(action: InviteStateEnum, grpId: String, inviteId: String): Boolean!
 }
