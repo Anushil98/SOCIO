@@ -1,4 +1,5 @@
 import { createGroup } from "../../resolvers/Group.mutation";
+import { ActionOnInvite, createInvite } from "../../resolvers/Invite.mutation";
 import { createPost } from "../../resolvers/Post.mutation";
 import { login, signUp } from "../../resolvers/User.mutation";
 
@@ -12,7 +13,10 @@ const Mutation = {
   // Post
   createPost,
   // Group
-  createGroup
+  createGroup,
+  // Invite
+  ActionOnInvite,
+  createInvite
 };
 
 export default Mutation;

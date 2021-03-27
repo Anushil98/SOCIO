@@ -7,4 +7,5 @@ export enum InviteStateEnum {
 export interface InviteInput {
   hostId: string;
   guestId: string;
+  grpId: string;
 }

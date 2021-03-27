@@ -8,10 +8,11 @@ import { logger } from "../utils/pino.utils";
 export class InviteRepository extends Repository<Invite> {
   createInvite = (data: InviteInput): Promise<Invite> => {
     try {
-      const { guestId, hostId } = data;
+      const { guestId, hostId, grpId } = data;
       const invite = new Invite();
       invite.guestId = guestId;
       invite.hostId = hostId;
+      invite.grpId = grpId;
       return this.save(invite);
     } catch (err) {
       logger.error(err);

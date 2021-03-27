@@ -1,0 +1,23 @@
+input InviteInput {
+  guestId: String!
+  grpId: String!
+}
+
+type Invite {
+  InviteId: String
+  Host: User
+  hostId: String
+  Guest: User
+  guestId: String
+  Group: Group
+  grpId: String
+  InviteState: InviteStateEnum
+  createdDate: DateTime
+  updateDate: DateTime
+}
+
+enum InviteStateEnum {
+  Accepted
+  Pending
+  Rejected
+}
