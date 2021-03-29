@@ -4,12 +4,18 @@
   "port": 5432,
   "username": "postgres",
   "password": "admin1234",
-  "database": "SOCIO",
+  "database": "Socio",
   "synchronize": true,
   "logging": false,
-  "entities": ["src/entity/**/*.ts"],
-  "migrations": ["src/migration/**/*.ts"],
-  "subscribers": ["src/subscriber/**/*.ts"],
+  "entities": [
+    "src/entity/**/*.ts"
+  ],
+  "migrations": [
+    "src/migration/**/*.ts"
+  ],
+  "subscribers": [
+    "src/subscriber/**/*.ts"
+  ],
   "cli": {
     "entitiesDir": "src/entity",
     "migrationsDir": "src/migration",

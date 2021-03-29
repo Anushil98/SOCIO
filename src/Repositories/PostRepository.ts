@@ -34,9 +34,12 @@ export class PostRepository extends Repository<Post> {
   getUserPosts = async (userId: string, grpId: string): Promise<Post[]> => {
     try {
       if (grpId) {
-        return getRepository(Post).find({ relations: ["User", "children"], where: { userId, parentId: IsNull(), grpId } });
+        return getRepository(Post).find({ relations: ["User", "children", "Group"], where: { userId, parentId: IsNull(), grpId } });
       }
-      return getRepository(Post).find({ relations: ["User", "children"], where: { userId, parentId: IsNull(), grpId: IsNull() } });
+      return getRepository(Post).find({
+        relations: ["User", "children"],
+        where: { userId, parentId: IsNull(), grpId: IsNull(), User: { UserType: "Public" } }
+      });
     } catch (err) {
       logger.error(err);
       throw new Error("Internal Server Error!");
@@ -46,9 +49,15 @@ export class PostRepository extends Repository<Post> {
   getChildrenPosts = async (parentId: string, grpId: string): Promise<Post> => {
     try {
       if (grpId) {
-        return getRepository(Post).findOne({ relations: ["User", "children", "children.User"], where: { postId: parentId, grpId } });
+        return getRepository(Post).findOne({
+          relations: ["User", "Group", "children", "children.User", "children.Group"],
+          where: { postId: parentId, grpId }
+        });
       }
-      return getRepository(Post).findOne({ relations: ["User", "children", "children.User"], where: { postId: parentId, grpId: IsNull() } });
+      return getRepository(Post).findOne({
+        relations: ["User", "children", "children.User"],
+        where: { postId: parentId, grpId: IsNull(), User: { UserType: "Public" } }
+      });
     } catch (err) {
       logger.error(err);
       throw new Error("Internal Server Error!");

@@ -9,3 +9,8 @@ export interface PostInput {
   text: string;
   Media: Media[];
 }
+
+export enum PostType {
+  public = "Public",
+  private = "Private"
+}

@@ -18,6 +18,8 @@ type Post {
   postId: String
   User: User
   userId: String
+  grpId: String
+  Group: Group
   parentId: String
   Parent: Post
   children: [Post]

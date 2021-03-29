@@ -7,7 +7,7 @@ import path from "path";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import resolvers from "./graphql/resolvers";
-import { RateLimiter } from "./utils/graphql.directives";
+import { IsClubMember, RateLimiter } from "./utils/graphql.directives";
 import { logger } from "./utils/pino.utils";
 import { getUserId } from "./utils/token.utils";
 
@@ -20,7 +20,8 @@ const schema = applyMiddleware(
     typeDefs,
     resolvers,
     schemaDirectives: {
-      rateLimit: RateLimiter
+      rateLimit: RateLimiter,
+      isClubMember: IsClubMember
     }
   })
 );
