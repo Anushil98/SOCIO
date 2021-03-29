@@ -31,8 +31,11 @@ export class PostRepository extends Repository<Post> {
     }
   };
 
-  getUserPosts = async (userId: string): Promise<Post[]> => {
+  getUserPosts = async (userId: string, grpId: string): Promise<Post[]> => {
     try {
+      if (grpId) {
+        return getRepository(Post).find({ relations: ["User", "children"], where: { userId, parentId: IsNull(), grpId } });
+      }
       return getRepository(Post).find({ relations: ["User", "children"], where: { userId, parentId: IsNull(), grpId: IsNull() } });
     } catch (err) {
       logger.error(err);
@@ -40,9 +43,11 @@ export class PostRepository extends Repository<Post> {
     }
   };
 
-  getChildrenPosts = async (parentId: string): Promise<Post> => {
+  getChildrenPosts = async (parentId: string, grpId: string): Promise<Post> => {
     try {
-      console.log(parentId);
+      if (grpId) {
+        return getRepository(Post).findOne({ relations: ["User", "children", "children.User"], where: { postId: parentId, grpId } });
+      }
       return getRepository(Post).findOne({ relations: ["User", "children", "children.User"], where: { postId: parentId, grpId: IsNull() } });
     } catch (err) {
       logger.error(err);

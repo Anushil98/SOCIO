@@ -13,18 +13,18 @@ export const createPost = async (_: any, args: { data: PostInput }, ctx: { userI
   }
 };
 
-export const getUserPosts = async (_: any, args: { userId: string }, ctx: { userId: string }) => {
+export const getUserPosts = async (_: any, args: { userId: string; grpId: string }, ctx: { userId: string }) => {
   try {
-    return getCustomRepository(PostRepository).getUserPosts(args.userId);
+    return getCustomRepository(PostRepository).getUserPosts(args.userId, args.grpId);
   } catch (err) {
     logger.error(err);
     throw new Error("Internal Server Error!!");
   }
 };
 
-export const getChildPosts = async (_: any, args: { parentId: string }, ctx: { userId: string }) => {
+export const getChildPosts = async (_: any, args: { parentId: string; grpId: string }, ctx: { userId: string }) => {
   try {
-    return getCustomRepository(PostRepository).getChildrenPosts(args.parentId);
+    return getCustomRepository(PostRepository).getChildrenPosts(args.parentId, args.grpId);
   } catch (err) {
     logger.error(err);
     throw new Error("Internal Server Error!!");
