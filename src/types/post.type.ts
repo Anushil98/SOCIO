@@ -9,7 +9,10 @@ export interface PostInput {
   text: string;
   Media: Media[];
 }
-
+export interface TagInput {
+  tagName: string;
+  tagId: string;
+}
 export enum PostType {
   public = "Public",
   private = "Private"

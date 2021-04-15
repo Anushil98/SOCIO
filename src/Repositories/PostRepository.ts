@@ -37,8 +37,13 @@ export class PostRepository extends Repository<Post> {
         return getRepository(Post).find({ relations: ["User", "children", "Group"], where: { userId, parentId: IsNull(), grpId } });
       }
       return getRepository(Post).find({
-        relations: ["User", "children"],
-        where: { userId, parentId: IsNull(), grpId: IsNull(), User: { UserType: "Public" } }
+        relations: ["User", "children", "postTags", "postTags.Tag"],
+        where: {
+          userId,
+          parentId: IsNull(),
+          grpId: IsNull()
+        },
+        order: { createdDate: "DESC" }
       });
     } catch (err) {
       logger.error(err);
@@ -51,12 +56,14 @@ export class PostRepository extends Repository<Post> {
       if (grpId) {
         return getRepository(Post).findOne({
           relations: ["User", "Group", "children", "children.User", "children.Group"],
-          where: { postId: parentId, grpId }
+          where: { postId: parentId, grpId },
+          order: { createdDate: "DESC" }
         });
       }
       return getRepository(Post).findOne({
         relations: ["User", "children", "children.User"],
-        where: { postId: parentId, grpId: IsNull(), User: { UserType: "Public" } }
+        where: { postId: parentId, grpId: IsNull() },
+        order: { createdDate: "DESC" }
       });
     } catch (err) {
       logger.error(err);

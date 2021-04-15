@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Media } from "../types/post.type";
 import { Group } from "./Group";
+import { PostTag } from "./PostTag";
 import { User } from "./User";
 
 @Entity("posts")
@@ -10,7 +11,10 @@ export class Post {
 
   @ManyToOne(
     () => Group,
-    group => group.grpId
+    group => group.grpId,
+    {
+      onDelete: "CASCADE"
+    }
   )
   @JoinColumn({ name: "grpId" })
   Group: Group;
@@ -20,7 +24,10 @@ export class Post {
 
   @ManyToOne(
     () => Post,
-    post => post.postId
+    post => post.postId,
+    {
+      onDelete: "CASCADE"
+    }
   )
   @JoinColumn({ name: "parentId" })
   Parent: Post;
@@ -39,7 +46,10 @@ export class Post {
 
   @ManyToOne(
     () => User,
-    user => user.id
+    user => user.id,
+    {
+      onDelete: "CASCADE"
+    }
   )
   @JoinColumn({ name: "userId" })
   User: User;
@@ -52,6 +62,12 @@ export class Post {
 
   @Column("jsonb", { array: true, nullable: true })
   Media: Media[];
+
+  @OneToMany(
+    () => PostTag,
+    postTag => postTag.Post
+  )
+  postTags: PostTag[];
 
   @CreateDateColumn()
   createdDate: Date;

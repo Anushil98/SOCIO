@@ -29,12 +29,16 @@ export class IsClubMember extends SchemaDirectiveVisitor {
     field.resolve = async (...args) => {
       const userId = getUserId(args[2].req.headers.authorization);
       const Args = args[1];
-      const groupMember = await getRepository(GroupMember).findOne({ grpId: Args.grpId, userId: userId.userId });
-      if (groupMember) {
-        const result = await resolve.apply(this, args);
-        return result;
+      if (Args.grpId) {
+        const groupMember = await getRepository(GroupMember).findOne({ grpId: Args.grpId, userId: userId.userId });
+        if (groupMember) {
+          const result = await resolve.apply(this, args);
+          return result;
+        }
+        throw new Error("The user has no required permission");
       }
-      throw new Error("The user has no required permission");
+      const result = await resolve.apply(this, args);
+      return result;
     };
   }
 }

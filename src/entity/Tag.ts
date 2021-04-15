@@ -1,32 +1,26 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./User";
 
-@Entity("group")
-export class Group {
+@Entity("tag")
+export class Tag {
   @PrimaryGeneratedColumn("uuid")
-  grpId: string;
+  tagId: string;
+
+  @Column("character varying", { unique: true, length: 20 })
+  tagName: string;
 
   @ManyToOne(
     () => User,
     user => user.id,
     {
-      onDelete: "CASCADE"
+      onDelete: "SET NULL"
     }
   )
-  @JoinColumn({ name: "ownerId" })
-  Owner: User;
+  @JoinColumn({ name: "createdBy" })
+  User: User;
 
-  @Column()
-  ownerId: string;
-
-  @Column()
-  grpName: string;
-
-  @Column({ unique: true })
-  grpHandle: string;
-
-  @Column("text")
-  grpBio: string;
+  @Column("uuid")
+  createdBy: string;
 
   @CreateDateColumn()
   createdDate: Date;

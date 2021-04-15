@@ -1,5 +1,6 @@
 import { getInvites } from "../../resolvers/Invite.mutation";
 import { getChildPosts, getUserPosts } from "../../resolvers/Post.mutation";
+import { getTagsBySearchText } from "../../resolvers/Tag.query";
 
 const Query = {
   InitQuery: () => {
@@ -8,7 +9,9 @@ const Query = {
   getUserPosts,
   getChildPosts,
   // Invites
-  getInvites
+  getInvites,
+  // tags
+  getTagsBySearchText
 };
 
 export default Query;

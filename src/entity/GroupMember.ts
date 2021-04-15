@@ -14,7 +14,10 @@ export class GroupMember {
 
   @ManyToOne(
     () => User,
-    user => user.id
+    user => user.id,
+    {
+      onDelete: "CASCADE"
+    }
   )
   @JoinColumn({ name: "userId" })
   User: User;
@@ -24,7 +27,10 @@ export class GroupMember {
 
   @ManyToOne(
     () => Group,
-    group => group.grpId
+    group => group.grpId,
+    {
+      onDelete: "CASCADE"
+    }
   )
   @JoinColumn({ name: "grpId" })
   Group: Group;
@@ -34,7 +40,10 @@ export class GroupMember {
 
   @ManyToOne(
     () => Invite,
-    invite => invite.InviteId
+    invite => invite.InviteId,
+    {
+      onDelete: "CASCADE"
+    }
   )
   @JoinColumn({ name: "inviteId" })
   Invite: Invite;

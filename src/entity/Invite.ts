@@ -10,7 +10,10 @@ export class Invite {
 
   @ManyToOne(
     () => User,
-    user => user.id
+    user => user.id,
+    {
+      onDelete: "CASCADE"
+    }
   )
   @JoinColumn({ name: "hostId" })
   Host: User;
@@ -20,7 +23,10 @@ export class Invite {
 
   @ManyToOne(
     () => User,
-    user => user.id
+    user => user.id,
+    {
+      onDelete: "CASCADE"
+    }
   )
   @JoinColumn({ name: "guestId" })
   Guest: User;
@@ -30,7 +36,10 @@ export class Invite {
 
   @ManyToOne(
     () => Group,
-    group => group.grpId
+    group => group.grpId,
+    {
+      onDelete: "CASCADE"
+    }
   )
   @JoinColumn({ name: "grpId" })
   Group: Group;

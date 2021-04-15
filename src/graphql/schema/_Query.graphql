@@ -6,4 +6,5 @@ type Query {
   getUserPosts(userId: String!, grpId: String): [Post] @isClubMember
   getChildPosts(parentId: String!, grpId: String): Post @isClubMember
   getInvites: [Invite]
+  getTagsBySearchText(searchText: String!): [Tag]
 }

@@ -2,7 +2,7 @@ type Mutation {
   InitMutation: String!
   login(email: String!, password: String!): AuthPayload @rateLimit(MAX_TOKENS: 5, TOKEN_WINDOW: 86400)
   signUp(data: SignUpArgs): AuthPayload
-  createPost(data: postInput): Post!
+  createPost(data: postInput, tags: [TagInput]): Post!
   createGroup(data: groupInput): Group!
   createInvite(data: InviteInput): Invite
   ActionOnInvite(action: InviteStateEnum, grpId: String, inviteId: String): Boolean!

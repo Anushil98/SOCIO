@@ -1,0 +1,22 @@
+input TagInput {
+  tagId: String
+  tagName: String!
+}
+
+type Tag {
+  tagId: String
+  tagName: String
+  createdBy: String
+  createdDate: DateTime
+  updateDate: DateTime
+}
+
+type PostTag {
+  postTagId: String
+  Post: Post
+  postId: String
+  Tag: Tag
+  tagId: String
+  createdDate: DateTime
+  updateDate: DateTime
+}
