@@ -1,5 +1,6 @@
 import { getInvites } from "../../resolvers/Invite.mutation";
 import { getChildPosts, getUserPosts } from "../../resolvers/Post.mutation";
+import { getFeedPosts } from "../../resolvers/Post.query";
 import { getTagsBySearchText } from "../../resolvers/Tag.query";
 import { getUserRelationCounts } from "../../resolvers/UserFollow.query";
 
@@ -9,6 +10,7 @@ const Query = {
   },
   getUserPosts,
   getChildPosts,
+  getFeedPosts,
   // Invites
   getInvites,
   // tags

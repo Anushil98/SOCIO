@@ -8,4 +8,5 @@ type Query {
   getInvites: [Invite]
   getTagsBySearchText(searchText: String!): [Tag]
   getUserRelationCounts(userId: String!): UserFollowRelationsCount!
+  getFeedPosts: [Post]
 }
