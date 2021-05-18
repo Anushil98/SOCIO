@@ -6,4 +6,9 @@ type Mutation {
   createGroup(data: groupInput): Group!
   createInvite(data: InviteInput): Invite
   ActionOnInvite(action: InviteStateEnum, grpId: String, inviteId: String): Boolean!
+
+  FollowUser(userId: String!): Boolean!
+  Unfollow(userId: String!): Boolean!
+  RemoveFollower(userId: String!): Boolean!
+  RejectFollowRequest(userId: String!): Boolean!
 }

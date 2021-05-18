@@ -1,0 +1,4 @@
+type UserFollowRelationsCount {
+  followers: Int!
+  followings: Int!
+}
