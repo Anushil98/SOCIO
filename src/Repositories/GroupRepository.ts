@@ -1,8 +1,9 @@
-import { EntityRepository, getRepository, Repository } from "typeorm";
+import { EntityRepository, getCustomRepository, getRepository, Repository } from "typeorm";
 import { Group } from "../entity/Group";
 import { GroupMember } from "../entity/GroupMember";
 import { GroupInput, MemberType } from "../types/Group.type";
 import { logger } from "../utils/pino.utils";
+import { SearchRepository } from "./SearchRepository";
 
 @EntityRepository(Group)
 export class GroupRepository extends Repository<Group> {
@@ -19,6 +20,8 @@ export class GroupRepository extends Repository<Group> {
       owner.userId = grp.ownerId;
       owner.MemberType = MemberType.Owner;
       await getRepository(GroupMember).save(owner);
+      await getCustomRepository(SearchRepository).addToSearch({ grpId: savedgrp.grpId });
+
       return savedgrp;
     } catch (err) {
       logger.error(err);

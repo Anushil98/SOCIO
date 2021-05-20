@@ -36,7 +36,10 @@ export class PostRepository extends Repository<Post> {
   getUserPosts = async (userId: string, grpId: string): Promise<Post[]> => {
     try {
       if (grpId) {
-        return getRepository(Post).find({ relations: ["User", "children", "Group"], where: { userId, parentId: IsNull(), grpId } });
+        return getRepository(Post).find({
+          relations: ["User", "children", "Group"],
+          where: { userId, parentId: IsNull(), grpId }
+        });
       }
       return getRepository(Post).find({
         relations: ["User", "children", "postTags", "postTags.Tag"],
@@ -53,7 +56,7 @@ export class PostRepository extends Repository<Post> {
     }
   };
 
-  getFeedPosts = async (userId: string): Promise<Post[]> => {
+  getFeedPosts = async (userId: string, page: number): Promise<Post[]> => {
     try {
       const followings = await getRepository(UserFollow).find({ followerId: userId });
       const userIds = [...followings.map(fol => fol.followingId), userId];
@@ -65,8 +68,47 @@ export class PostRepository extends Repository<Post> {
       return this.find({
         relations: ["User", "Group"],
         where: conditions,
-        order: { createdDate: "DESC" }
+        order: { createdDate: "DESC" },
+        skip: (page - 1) * 3,
+        take: 3
       });
+    } catch (err) {
+      logger.error(err);
+      throw new Error("Internal Server Error");
+    }
+  };
+
+  getUsersGroupPosts = async (userId: string, page: number): Promise<Post[]> => {
+    try {
+      const grpIds = await getRepository(GroupMember).find({ userId });
+      if (grpIds.length === 0) return [];
+
+      return this.createQueryBuilder("posts")
+        .select(["posts", "user", "group"])
+        .innerJoin("posts.User", "user", "user.id = posts.userId")
+        .innerJoin("posts.Group", "group", "group.grpId = posts.grpId")
+        .where("posts.grpId is not null and posts.grpId in (:...grpIds) ", { grpIds: grpIds.map(grpId => grpId.grpId) })
+        .orderBy("posts.createdDate", "DESC")
+        .skip((page - 1) * 3)
+        .take(3)
+        .getMany();
+    } catch (err) {
+      logger.error(err);
+      throw new Error("Internal Server Error");
+    }
+  };
+
+  getGroupPosts = async (grpId: string, page: number): Promise<Post[]> => {
+    try {
+      return this.createQueryBuilder("posts")
+        .select(["posts", "user", "group"])
+        .innerJoin("posts.User", "user", "user.id = posts.userId")
+        .innerJoin("posts.Group", "group", "group.grpId = posts.grpId")
+        .where("posts.grpId = :grpId", { grpId })
+        .orderBy("posts.createdDate", "DESC")
+        .skip((page - 1) * 3)
+        .take(3)
+        .getMany();
     } catch (err) {
       logger.error(err);
       throw new Error("Internal Server Error");

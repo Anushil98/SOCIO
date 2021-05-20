@@ -1,0 +1,4 @@
+type SearchOutput {
+  user: User
+  group: Group
+}

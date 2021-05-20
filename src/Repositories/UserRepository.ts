@@ -1,8 +1,9 @@
 import bcrypt from "bcryptjs";
-import { EntityRepository, getRepository, Repository } from "typeorm";
+import { EntityRepository, getCustomRepository, getRepository, Repository } from "typeorm";
 import { User } from "../entity/User";
 import { SignUpArgs } from "../types/User.type";
 import { logger } from "../utils/pino.utils";
+import { SearchRepository } from "./SearchRepository";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
@@ -23,6 +24,7 @@ export class UserRepository extends Repository<User> {
         user.lastname = lastname;
         user.username = username;
         const addedUser = await getRepository(User).save(user);
+        await getCustomRepository(SearchRepository).addToSearch({ userId: addedUser.id });
         return addedUser;
       }
       throw new Error("Email already exist");

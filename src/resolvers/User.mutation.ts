@@ -5,7 +5,7 @@ import { UserRepository } from "../Repositories/UserRepository";
 import { AuthPayload, SignUpArgs } from "../types/User.type";
 import { AskEntryPermission } from "../utils/exponentialDelayToken.utils";
 import { logger } from "../utils/pino.utils";
-import { generateToken } from "../utils/token.utils";
+import { generateToken, getRefreshedAccessToken } from "../utils/token.utils";
 
 export const login = async (_: any, args: { email: string; password: string }): Promise<AuthPayload> => {
   try {
@@ -37,6 +37,15 @@ export const signUp = async (_: any, args: { data: SignUpArgs }): Promise<AuthPa
   try {
     const addedUser = await getCustomRepository(UserRepository).createNew(args.data);
     return generateToken(addedUser.id, addedUser.email);
+  } catch (err) {
+    logger.error(err);
+    throw err;
+  }
+};
+
+export const getAccessToken = (_: any, args: { token: string }): AuthPayload => {
+  try {
+    return getRefreshedAccessToken(args.token);
   } catch (err) {
     logger.error(err);
     throw err;

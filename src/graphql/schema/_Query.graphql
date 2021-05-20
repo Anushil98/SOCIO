@@ -3,10 +3,16 @@ directive @isClubMember on FIELD_DEFINITION
 
 type Query {
   InitQuery(id: Int): String! @rateLimit(MAX_TOKENS: 10, TOKEN_WINDOW: 86400)
+  getUserDetails(userId: String): User
+  getUsersGroups(page: Int!): [Group]
+  getGroupDetails(grpId: String!): Group
+  getUsersGroupPosts(page: Int!): [Post]
+  getGroupPosts(grpId: String!, page: Int!): [Post]
   getUserPosts(userId: String!, grpId: String): [Post] @isClubMember
   getChildPosts(parentId: String!, grpId: String): Post @isClubMember
   getInvites: [Invite]
   getTagsBySearchText(searchText: String!): [Tag]
   getUserRelationCounts(userId: String!): UserFollowRelationsCount!
-  getFeedPosts: [Post]
+  getFeedPosts(page: Int!): [Post]
+  searchUser(searchText: String!, page: Int!): [SearchOutput]
 }

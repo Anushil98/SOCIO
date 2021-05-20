@@ -10,6 +10,14 @@ export const generateToken = (userId: string, email: string): AuthPayload => {
   };
 };
 
+export const getRefreshedAccessToken = (refreshAccessToken: string): AuthPayload => {
+  const payload: any = jwt.verify(refreshAccessToken, keys.refreshAccessTokenSecret);
+  if (payload) {
+    return generateToken(payload.userId.toString(), payload.email.toString());
+  }
+  throw new Error("Refresh Token has expired");
+};
+
 export const getUserId = (accessToken: string) => {
   let Auth = accessToken.replace("Bearer", "");
   Auth = Auth.trim();
