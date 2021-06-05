@@ -11,6 +11,7 @@ export class PostRepository extends Repository<Post> {
   createPost = async (data: PostInput, userId: string) => {
     try {
       const { Media, text, parentId, grpId } = data;
+      console.log(Media);
       const post = new Post();
       post.userId = userId;
       post.Media = Media;
@@ -22,6 +23,7 @@ export class PostRepository extends Repository<Post> {
         post.grpId = parent.grpId;
       }
       const savedpost = await this.save(post);
+      console.log(savedpost, data.Media);
       if (parentId) {
         await this.update({ postId: parentId }, { HasChildren: true });
       }

@@ -6,11 +6,13 @@ type Query {
   getUserDetails(userId: String): User
   getUsersGroups(page: Int!): [Group]
   getGroupDetails(grpId: String!): Group
+  CheckGroupMembership(grpId: String!): Boolean
   getUsersGroupPosts(page: Int!): [Post]
   getGroupPosts(grpId: String!, page: Int!): [Post]
+  getUserPostApi(userId: String!, page: Int!): [Post]
   getUserPosts(userId: String!, grpId: String): [Post] @isClubMember
   getChildPosts(parentId: String!, grpId: String): Post @isClubMember
-  getInvites: [Invite]
+  getInvites(page: Int!): [Invite]
   getTagsBySearchText(searchText: String!): [Tag]
   getUserRelationCounts(userId: String!): UserFollowRelationsCount!
   getFeedPosts(page: Int!): [Post]

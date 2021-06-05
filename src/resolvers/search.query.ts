@@ -9,20 +9,21 @@ export const searchUser = async (_: any, args: { searchText: string; page: numbe
   try {
     const searchRes = await getRepository(Search)
       .createQueryBuilder("search")
-      .select('COALESCE("search"."userId"::text,"search"."grpId"::text) as "ID", max("search"."score") as "score"')
-      .where('LOWER("search"."searchText") like :searchText', { searchText: `%${args.searchText}%` })
+      .select(`COALESCE("search"."userId"::text,"search"."grpId"::text) as "ID", max("search"."score") as "score"`)
+      .where('LOWER("search"."searchText") like :searchText', {
+        searchText: `%${args.searchText.toLowerCase()}%`
+      })
       .groupBy('"ID"')
       .orderBy('"score"', "DESC")
       .skip((args.page - 1) * 10)
       .take(10)
       .getRawMany();
+    console.log(searchRes);
     const res: { user: User; group: Group }[] = Array(searchRes.length);
     for (let index = 0; index < searchRes.length; index += 1) {
-      if (searchRes[index].grpId) {
-        res[index].group = await getRepository(Group).findOne({ grpId: searchRes[index].grpId });
-      } else if (searchRes[index].userId) {
-        res[index].user = await getRepository(User).findOne({ id: searchRes[index].userId });
-      }
+      const group = await getRepository(Group).findOne({ grpId: searchRes[index].ID });
+      const user = await getRepository(User).findOne({ id: searchRes[index].ID });
+      res[index] = { user, group };
     }
     return res;
   } catch (err) {

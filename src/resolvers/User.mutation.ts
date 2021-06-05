@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import { getCustomRepository, getRepository } from "typeorm";
 import { User } from "../entity/User";
 import { UserRepository } from "../Repositories/UserRepository";
+import { Media } from "../types/post.type";
 import { AuthPayload, SignUpArgs } from "../types/User.type";
 import { AskEntryPermission } from "../utils/exponentialDelayToken.utils";
 import { logger } from "../utils/pino.utils";
@@ -46,6 +47,21 @@ export const signUp = async (_: any, args: { data: SignUpArgs }): Promise<AuthPa
 export const getAccessToken = (_: any, args: { token: string }): AuthPayload => {
   try {
     return getRefreshedAccessToken(args.token);
+  } catch (err) {
+    logger.error(err);
+    throw err;
+  }
+};
+
+export const updateUserImage = async (
+  _: any,
+  args: { data: { media: Media; type: "Avatar" | "Cover" } },
+  ctx: { userId: string }
+): Promise<boolean> => {
+  try {
+    console.log(args.data);
+    await getCustomRepository(UserRepository).updateUserImage(args.data, ctx.userId);
+    return true;
   } catch (err) {
     logger.error(err);
     throw err;

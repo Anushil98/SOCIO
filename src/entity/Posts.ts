@@ -60,7 +60,7 @@ export class Post {
   @Column("text", { nullable: true })
   text: string;
 
-  @Column("jsonb", { array: true, nullable: true })
+  @Column("jsonb", { default: {}, nullable: true })
   Media: Media[];
 
   @OneToMany(

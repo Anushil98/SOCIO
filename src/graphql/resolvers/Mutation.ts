@@ -1,7 +1,7 @@
 import { createGroup } from "../../resolvers/Group.mutation";
 import { ActionOnInvite, createInvite } from "../../resolvers/Invite.mutation";
 import { createPost } from "../../resolvers/Post.mutation";
-import { getAccessToken, login, signUp } from "../../resolvers/User.mutation";
+import { getAccessToken, login, signUp, updateUserImage } from "../../resolvers/User.mutation";
 import { FollowUser, RejectFollowRequest, RemoveFollower, Unfollow } from "../../resolvers/UserFollow.mutation";
 
 const Mutation = {
@@ -12,6 +12,7 @@ const Mutation = {
   signUp,
   login,
   getAccessToken,
+  updateUserImage,
   // Post
   createPost,
   // Group

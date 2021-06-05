@@ -10,7 +10,7 @@ input MediaInput {
 input postInput {
   text: String
   grpId: String
-  Media: MediaInput
+  Media: [MediaInput]
   parentId: String
 }
 
@@ -25,7 +25,7 @@ type Post {
   children: [Post]
   HasChildren: Boolean
   text: String
-  Media: Media
+  Media: [Media]
   postTags: [PostTag]
   createdDate: DateTime
   updateDate: DateTime

@@ -7,9 +7,13 @@ import { logger } from "../utils/pino.utils";
 
 @EntityRepository(Invite)
 export class InviteRepository extends Repository<Invite> {
-  createInvite = (data: InviteInput): Promise<Invite> => {
+  createInvite = async (data: InviteInput): Promise<Invite> => {
     try {
       const { guestId, hostId, grpId } = data;
+      const ismember = await getRepository(GroupMember).findOne({ userId: guestId, grpId });
+      if (ismember) {
+        throw new Error("User is already a member");
+      }
       const invite = new Invite();
       invite.guestId = guestId;
       invite.hostId = hostId;
@@ -17,7 +21,7 @@ export class InviteRepository extends Repository<Invite> {
       return this.save(invite);
     } catch (err) {
       logger.error(err);
-      throw new Error("Error in saving invite");
+      throw new Error(err);
     }
   };
 

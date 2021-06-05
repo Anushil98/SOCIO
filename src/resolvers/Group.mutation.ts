@@ -1,5 +1,6 @@
 import { getCustomRepository, getRepository } from "typeorm";
 import { Group } from "../entity/Group";
+import { GroupMember } from "../entity/GroupMember";
 import { GroupRepository } from "../Repositories/GroupRepository";
 import { GroupInput } from "../types/Group.type";
 import { logger } from "../utils/pino.utils";
@@ -15,7 +16,12 @@ export const createGroup = async (_: any, args: { data: GroupInput }, ctx: { use
 
 export const getUsersGroups = async (_: any, args: { page: number }, ctx: { userId: string }): Promise<Group[]> => {
   try {
-    return getRepository(Group).find({ where: { ownerId: ctx.userId }, skip: (args.page - 1) * 3, take: 3, order: { createdDate: "DESC" } });
+    const GroupMembers = await getRepository(GroupMember).find({
+      where: { userId: ctx.userId },
+      relations: ["Group"],
+      order: { createdDate: "DESC" }
+    });
+    return GroupMembers.map(member => member.Group);
   } catch (err) {
     logger.error(err);
     throw err;

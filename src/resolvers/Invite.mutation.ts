@@ -10,13 +10,19 @@ export const createInvite = (_: any, args: { data: InviteInput }, ctx: { userId:
     return getCustomRepository(InviteRepository).createInvite({ guestId, hostId: ctx.userId, grpId });
   } catch (err) {
     logger.error(err);
-    throw new Error("Internal Server Error");
+    throw new Error(err);
   }
 };
 
-export const getInvites = (_: any, args: any, ctx: { userId: string }): Promise<Invite[]> => {
+export const getInvites = (_: any, args: { page: number }, ctx: { userId: string }): Promise<Invite[]> => {
   try {
-    return getRepository(Invite).find({ guestId: ctx.userId });
+    return getRepository(Invite).find({
+      where: { guestId: ctx.userId },
+      relations: ["Host", "Guest", "Group"],
+      order: { createdDate: "DESC" },
+      skip: (args.page - 1) * 3,
+      take: 3
+    });
   } catch (err) {
     logger.error(err);
     throw new Error("Internal Server Error");

@@ -3,6 +3,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload @rateLimit(MAX_TOKENS: 5, TOKEN_WINDOW: 86400)
   getAccessToken(token: String!): AuthPayload!
   signUp(data: SignUpArgs): AuthPayload
+  updateUserImage(data: UserImageUpdate!): Boolean
   createPost(data: postInput, tags: [TagInput]): Post!
   createGroup(data: groupInput): Group!
   createInvite(data: InviteInput): Invite

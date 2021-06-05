@@ -28,4 +28,17 @@ export class GroupRepository extends Repository<Group> {
       throw new Error("Internal Server Error");
     }
   };
+
+  checkGroupMembership = async (userId: string, grpId: string): Promise<boolean> => {
+    try {
+      const ismember = await getRepository(GroupMember).findOne({ grpId, userId });
+      if (ismember) {
+        return true;
+      }
+      return false;
+    } catch (err) {
+      logger.error(err);
+      throw err;
+    }
+  };
 }

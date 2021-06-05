@@ -4,7 +4,7 @@ import { logger } from "../utils/pino.utils";
 
 export const getUserDetails = (_: any, args: { userId: string }): Promise<User> => {
   try {
-    return getRepository(User).findOne({ select: ["id", "firstname", "lastname", "username", "avatar"], where: { id: args.userId } });
+    return getRepository(User).findOne({ select: ["id", "firstname", "lastname", "username", "avatar", "cover"], where: { id: args.userId } });
   } catch (err) {
     logger.error(err);
     throw err;
