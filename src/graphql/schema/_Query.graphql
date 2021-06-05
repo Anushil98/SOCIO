@@ -15,6 +15,7 @@ type Query {
   getInvites(page: Int!): [Invite]
   getTagsBySearchText(searchText: String!): [Tag]
   getUserRelationCounts(userId: String!): UserFollowRelationsCount!
+  isFollow(userId: String!): Boolean
   getFeedPosts(page: Int!): [Post]
-  searchUser(searchText: String!, page: Int!): [SearchOutput]
+  searchUser(searchText: String!, page: Int!, grpId: String): [SearchOutput]
 }

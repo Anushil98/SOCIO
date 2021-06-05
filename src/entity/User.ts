@@ -42,6 +42,9 @@ export class User {
   @Column({ nullable: true })
   cover: string;
 
+  @Column({ select: false, nullable: true })
+  ismember?: boolean;
+
   @CreateDateColumn()
   createdDate: Date;
 

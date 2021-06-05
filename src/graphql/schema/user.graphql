@@ -38,6 +38,7 @@ type User {
   cover: String
   createdDate: DateTime
   updateDate: DateTime
+  ismember: Boolean
 }
 
 input UserImageUpdate {

@@ -7,7 +7,7 @@ import { getFeedPosts, getGroupPosts, getUserPostApi, getUsersGroupPosts } from 
 import { searchUser } from "../../resolvers/search.query";
 import { getTagsBySearchText } from "../../resolvers/Tag.query";
 import { getUserDetails } from "../../resolvers/User.query";
-import { getUserRelationCounts } from "../../resolvers/UserFollow.query";
+import { getUserRelationCounts, isFollow } from "../../resolvers/UserFollow.query";
 
 const Query = {
   InitQuery: () => {
@@ -36,6 +36,7 @@ const Query = {
   getTagsBySearchText,
   // User Follow
   getUserRelationCounts,
+  isFollow,
   // Search
   searchUser
 };
